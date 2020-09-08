@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,8 +20,8 @@ class _HomeState extends State<Home> {
       final url = 'https://suzuri.jp/api/v1/materials';
       final token = DotEnv().env['API_TOKEN'];
       final client = http.Client();
-      final response =
-          await client.get(url, headers: {'Authorization': 'Bearer $token'});
+      final response = await client.get(url,
+          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
       final decoded = json.decode(response.body);
 
       final List<SuzuriMaterial> materials = decoded['materials']
