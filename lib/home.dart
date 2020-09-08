@@ -29,9 +29,6 @@ class _HomeState extends State<Home> {
           .toList();
 
       provider.materials = materials;
-
-      print(decoded);
-      print(materials[0]);
     });
     super.initState();
   }
