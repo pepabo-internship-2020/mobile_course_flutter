@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final provider = context.read<SuzuriMaterialProvider>();
@@ -42,28 +44,44 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("ShunT"),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-          ),
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => UserDetail(),
-                ),
-              );
+      body: Column(children: [
+        Container(
+          padding: EdgeInsets.fromLTRB(16, 10, 16, 0),
+          child: TextField(
+            style: TextStyle(
+              fontSize: 17,
+            ),
+            decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(22.5)),
+            ),
+            onSubmitted: (text) {
+              
             },
-            child: Image.network(materials[index].textureUrl),
           ),
-          itemCount: materials.length,
         ),
-      ),
+        Flexible(
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+            ),
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => UserDetail(),
+                  ),
+                );
+              },
+              child: Image.network(materials[index].textureUrl),
+            ),
+            itemCount: materials.length,
+          ),
+        ),
+      ]),
     );
   }
 }
