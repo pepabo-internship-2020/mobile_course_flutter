@@ -39,7 +39,8 @@ class UserDetail extends StatelessWidget {
                       Column(
                         children: [
                           Text(userStore.user.name),
-                          // Text(userStore.user.displayName),
+                          if (userStore.user.displayName != null)
+                            Text(userStore.user.displayName),
                         ],
                       ),
                     ],
@@ -54,7 +55,8 @@ class UserDetail extends StatelessWidget {
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             delegate: SliverChildBuilderDelegate(
                 (context, index) => GestureDetector(
-                    // onTap: () => _launchURL(userStore.products[index].url),
+                    onTap: () =>
+                        _launchURL(userStore.products[index].sampleUrl),
                     child: Image.network(
                         userStore.products[index].sampleImageUrl)),
                 childCount: userStore.products.length),
