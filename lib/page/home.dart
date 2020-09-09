@@ -58,8 +58,8 @@ class _HomeState extends State<Home> {
                 MaterialPageRoute(
                   builder: (BuildContext context) =>
                       ChangeNotifierProvider<UserStore>(
-                    create: (BuildContext context) =>
-                        UserStore(userId: 1), // TODO: fix this
+                    create: (BuildContext context) => UserStore(
+                        userId: materials[index].user.id), // TODO: fix this
                     child: UserDetail(),
                   ),
                 ),

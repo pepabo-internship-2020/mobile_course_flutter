@@ -1,8 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_course_flutter/api_client.dart';
+import '../model/product.dart';
 import '../model/user.dart';
 
 class UserStore extends ChangeNotifier {
   final int userId;
+  User user;
+  List<Product> products;
 
-  UserStore({this.userId});
+  UserStore({this.userId}) {
+    print('constructor called');
+    _fetchUser().then((_) => _fetchUserProducts());
+  }
+
+  Future<User> _fetchUser() async {
+    final map = await ApiClient.getMap(path: '/users/$userId');
+    try {
+      user = User.fromMap(map['user']);
+    } catch (e) {
+      print(e);
+      // cannot find user;
+    }
+
+    print(user.displayName);
+  }
+
+  Future<List<Product>> _fetchUserProducts() {
+    // user
+  }
 }
