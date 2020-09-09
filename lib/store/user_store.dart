@@ -6,7 +6,7 @@ import '../model/user.dart';
 class UserStore extends ChangeNotifier {
   final int userId;
   User user;
-  List<Product> products;
+  List<Product> products = [];
 
   UserStore({this.userId}) {
     print('constructor called');
@@ -14,29 +14,29 @@ class UserStore extends ChangeNotifier {
     _fetchUserProducts();
   }
 
-  Future<User> _fetchUser() async {
-    final map = await ApiClient.getMap(path: '/users/$userId');
+  Future<void> _fetchUser() async {
     try {
+      final map = await ApiClient.getMap(path: '/users/$userId');
       user = User.fromMap(map['user']);
     } catch (e) {
       print(e);
       // cannot find user;
     }
-
+    notifyListeners();
     print(user.toJson());
   }
 
-  Future<List<Product>> _fetchUserProducts() async {
-    final map = await ApiClient.getMap(path: '/products?userId=$userId');
+  Future<void> _fetchUserProducts() async {
     try {
+      final map = await ApiClient.getMap(path: '/products?userId=$userId');
       products = map['products']
           .map<Product>((item) => Product.fromMap(item))
           .toList();
+      notifyListeners();
     } catch (e) {
       print(e);
       // cannot find user;
     }
-
     print(products.toString());
   }
 }

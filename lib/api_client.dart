@@ -11,8 +11,14 @@ class ApiClient {
   static Future<Map<String, dynamic>> getMap({@required String path}) async {
     final client = http.Client();
     final url = baseUrl + path;
+
     final response = await client
         .get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
-    return json.decode(response.body) as Map<String, dynamic>;
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body) as Map<String, dynamic>;
+    } else {
+      print('http error');
+    }
   }
 }
