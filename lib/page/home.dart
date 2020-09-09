@@ -25,9 +25,10 @@ class _HomeState extends State<Home> {
       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
     );
     final decoded = json.decode(response.body);
-    final List<SearchData> searchData = decoded['products'][0]['prints']
+    final List<SearchData> searchData = decoded['products']
         .map<SearchData>((json) => SearchData.fromMap(json))
         .toList();
+    print(searchData[0].prints[0]);
   }
 
   @override
