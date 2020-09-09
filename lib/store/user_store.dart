@@ -10,7 +10,8 @@ class UserStore extends ChangeNotifier {
 
   UserStore({this.userId}) {
     print('constructor called');
-    _fetchUser().then((_) => _fetchUserProducts());
+    _fetchUser();
+    _fetchUserProducts();
   }
 
   Future<User> _fetchUser() async {
@@ -22,10 +23,20 @@ class UserStore extends ChangeNotifier {
       // cannot find user;
     }
 
-    print(user.displayName);
+    print(user.toJson());
   }
 
-  Future<List<Product>> _fetchUserProducts() {
-    // user
+  Future<List<Product>> _fetchUserProducts() async {
+    final map = await ApiClient.getMap(path: '/products?userId=$userId');
+    try {
+      products = map['products']
+          .map<Product>((item) => Product.fromMap(item))
+          .toList();
+    } catch (e) {
+      print(e);
+      // cannot find user;
+    }
+
+    print(products.toString());
   }
 }
