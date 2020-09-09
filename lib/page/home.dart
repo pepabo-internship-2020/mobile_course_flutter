@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mobile_course_flutter/controller/user_provider.dart';
 import 'package:mobile_course_flutter/material.dart';
 import 'package:mobile_course_flutter/material_provider.dart';
 import 'package:mobile_course_flutter/page/user_detail.dart';
@@ -55,7 +56,11 @@ class _HomeState extends State<Home> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => UserDetail(),
+                  builder: (BuildContext context) =>
+                      ChangeNotifierProvider<UserProvider>(
+                          create: (BuildContext context) =>
+                              UserProvider(userId: 1), // TODO: fix this
+                          child: UserDetail()),
                 ),
               );
             },
