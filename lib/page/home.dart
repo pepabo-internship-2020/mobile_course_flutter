@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mobile_course_flutter/controller/user_provider.dart';
 import 'package:mobile_course_flutter/material.dart';
 import 'package:mobile_course_flutter/material_provider.dart';
 import 'package:mobile_course_flutter/page/user_detail.dart';
+import 'package:mobile_course_flutter/store/user_store.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -57,10 +57,11 @@ class _HomeState extends State<Home> {
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      ChangeNotifierProvider<UserProvider>(
-                          create: (BuildContext context) =>
-                              UserProvider(userId: 1), // TODO: fix this
-                          child: UserDetail()),
+                      ChangeNotifierProvider<UserStore>(
+                    create: (BuildContext context) =>
+                        UserStore(userId: 1), // TODO: fix this
+                    child: UserDetail(),
+                  ),
                 ),
               );
             },

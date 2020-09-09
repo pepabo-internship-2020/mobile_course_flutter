@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../model/user.dart';
 
-class UserProvider extends ChangeNotifier {
+class UserStore extends ChangeNotifier {
   final int userId;
 
-  UserProvider({this.userId});
+  UserStore({this.userId});
 }
