@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 class SearchData {
-  final String title;
+  final String textureUrl;
 
-  SearchData({this.title});
+  SearchData({this.textureUrl});
 
   factory SearchData.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
     return SearchData(
-      title: map['title'],
+      textureUrl: map['textureUrl'],
     );
   }
 
