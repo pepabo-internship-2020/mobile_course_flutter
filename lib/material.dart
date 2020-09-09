@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'model/user.dart';
+
 class SuzuriMaterial {
   final int id;
   final String textureUrl;
@@ -7,6 +9,7 @@ class SuzuriMaterial {
   final String description;
   final int price;
   final bool violation;
+  final User user;
 
   SuzuriMaterial({
     this.id,
@@ -15,6 +18,7 @@ class SuzuriMaterial {
     this.description,
     this.price,
     this.violation,
+    this.user,
   });
 
   Map<String, dynamic> toMap() {
@@ -25,6 +29,7 @@ class SuzuriMaterial {
       'description': description,
       'price': price,
       'violation': violation,
+      'user': user?.toMap(),
     };
   }
 
@@ -38,6 +43,7 @@ class SuzuriMaterial {
       description: map['description'],
       price: map['price'],
       violation: map['violation'],
+      user: User.fromMap(map['user']),
     );
   }
 
