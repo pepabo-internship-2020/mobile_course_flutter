@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_course_flutter/material.dart';
 import 'package:mobile_course_flutter/material_provider.dart';
+import 'package:mobile_course_flutter/page/user_detail.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -38,12 +39,28 @@ class _HomeState extends State<Home> {
     final provider = context.watch<SuzuriMaterialProvider>();
     final materials = provider.materials;
     return Scaffold(
+      appBar: AppBar(
+        title: Text("ShunT"),
+      ),
       body: Container(
+        padding: EdgeInsets.all(16),
         child: GridView.builder(
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (context, index) =>
-              Image.network(materials[index].textureUrl),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+          ),
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => UserDetail(),
+                ),
+              );
+            },
+            child: Image.network(materials[index].textureUrl),
+          ),
           itemCount: materials.length,
         ),
       ),

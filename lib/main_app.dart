@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_course_flutter/home.dart';
+import 'package:mobile_course_flutter/page/home.dart';
 import 'package:provider/provider.dart';
 
 import 'material_provider.dart';
