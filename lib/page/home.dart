@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_course_flutter/material.dart';
 import 'package:mobile_course_flutter/material_provider.dart';
 import 'package:mobile_course_flutter/page/user_detail.dart';
+import 'package:mobile_course_flutter/search_data.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -15,8 +15,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
+  void _getSearchData(String searchText) async {
+    final uri =
+        Uri.https('suzuri.jp', '/api/v1/products/search', {'q': searchText});
+    final token = DotEnv().env['API_TOKEN'];
+    final client = http.Client();
+    final response = await client.get(
+      uri,
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
+    );
+    final decoded = json.decode(response.body);
+      final List<SearchData> searchData = decoded['products']
+        .map<SearchData>((json) => SearchData.fromMap(json))
+        .toList();
+  }
 
+  @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final provider = context.read<SuzuriMaterialProvider>();
@@ -26,7 +40,6 @@ class _HomeState extends State<Home> {
       final response = await client.get(url,
           headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
       final decoded = json.decode(response.body);
-
       final List<SuzuriMaterial> materials = decoded['materials']
           .map<SuzuriMaterial>((json) => SuzuriMaterial.fromMap(json))
           .toList();
@@ -56,7 +69,7 @@ class _HomeState extends State<Home> {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(22.5)),
             ),
             onSubmitted: (text) {
-              
+              _getSearchData(text);
             },
           ),
         ),
