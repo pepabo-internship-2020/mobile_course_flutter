@@ -39,9 +39,14 @@ class _HomeState extends State<Home> {
     final materials = provider.materials;
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.all(16),
         child: GridView.builder(
           gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                ),
           itemBuilder: (context, index) =>
               Image.network(materials[index].textureUrl),
           itemCount: materials.length,
