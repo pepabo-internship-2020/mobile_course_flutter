@@ -4,16 +4,16 @@ class Product {
   final int id;
   final String title;
   final String sampleImageUrl;
-  final String url;
+  final String sampleUrl;
 
-  Product({this.id, this.title, this.sampleImageUrl, this.url});
+  Product({this.id, this.title, this.sampleImageUrl, this.sampleUrl});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
       'sampleImageUrl': sampleImageUrl,
-      'url': url,
+      'sampleUrl': sampleUrl,
     };
   }
 
@@ -24,7 +24,7 @@ class Product {
       id: map['id'],
       title: map['title'],
       sampleImageUrl: map['sampleImageUrl'],
-      url: map['url'],
+      sampleUrl: map['sampleUrl'],
     );
   }
 
