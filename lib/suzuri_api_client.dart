@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'material.dart';
 import 'model/product.dart';
 import 'model/user.dart';
 
@@ -23,6 +25,17 @@ class SuzuriApiClient {
     final map = await _getResponseMap(path: path);
     return map['products']
         .map<Product>((item) => Product.fromMap(item))
+        .toList();
+  }
+
+  Future<List<SuzuriMaterial>> getMaterialList({
+    @required int offset,
+    @required int limit,
+  }) async {
+    final path = '/materials?offset=$offset&limit=$limit';
+    final map = await _getResponseMap(path: path);
+    return map['materials']
+        .map<SuzuriMaterial>((item) => SuzuriMaterial.fromMap(item))
         .toList();
   }
 
