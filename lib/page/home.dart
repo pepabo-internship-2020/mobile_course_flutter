@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_course_flutter/material_provider.dart';
+import 'package:mobile_course_flutter/search_result.dart';
 import 'package:mobile_course_flutter/page/user_detail.dart';
 import 'package:mobile_course_flutter/store/user_store.dart';
 import 'package:provider/provider.dart';
@@ -27,43 +28,55 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("ShunT"),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-          ),
-          itemBuilder: (context, index) {
-            print(index);
-            if (index == materials.length) {
-              provider.loadMaterials();
-              return Center(child: CircularProgressIndicator());
-            } else if (materials.length < index) {
-              return null;
-            } else {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          ChangeNotifierProvider<UserStore>(
-                        create: (BuildContext context) =>
-                            UserStore(userId: materials[index].user.id),
-                        child: UserDetail(),
-                      ),
-                    ),
-                  );
-                },
-                child: Image.network(materials[index].textureUrl),
+      body: Column(children: [
+        Container(
+          padding: EdgeInsets.fromLTRB(16, 10, 16, 0),
+          child: TextField(
+            style: TextStyle(
+              fontSize: 17,
+            ),
+            decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(22.5)),
+            ),
+            onSubmitted: (text) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      SearchResult(searchText: text),
+                ),
               );
-            }
-          },
-          itemCount: materials.length + 1,
+            },
+          ),
         ),
-      ),
+        Flexible(
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+            ),
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        ChangeNotifierProvider<UserStore>(
+                      create: (BuildContext context) =>
+                          UserStore(userId: materials[index].user.id),
+                      child: UserDetail(),
+                    ),
+                  ),
+                );
+              },
+              child: Image.network(materials[index].textureUrl),
+            ),
+            itemCount: materials.length,
+          ),
+        ),
+      ]),
     );
   }
 }
