@@ -47,18 +47,22 @@ class _MaterialListState extends State<MaterialList> {
   Widget build(BuildContext context) {
     final provider = context.watch<ProductStore>();
     return GridView.builder(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemCount: provider.products.length,
-        itemBuilder: (context, index) => GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => UserDetail(),
-                  ));
-            },
-            child: Image.network(
-                provider.products[index].prints[0].material.textureUrl)));
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemCount: provider.products.length,
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => UserDetail(),
+            ),
+          );
+        },
+        child: Image.network(
+            provider.products[index].prints[0].material.textureUrl),
+      ),
+    );
   }
 }
