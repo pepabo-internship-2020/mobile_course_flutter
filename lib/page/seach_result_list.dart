@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_course_flutter/model/product.dart';
 import 'package:mobile_course_flutter/page/user_detail.dart';
 import 'package:mobile_course_flutter/search_result_store.dart';
+import 'package:mobile_course_flutter/store/user_store.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -56,7 +57,13 @@ class _SearchResultListState extends State<SearchResultList> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => UserDetail(),
+              builder: (BuildContext context) =>
+                  ChangeNotifierProvider<UserStore>(
+                create: (BuildContext context) => UserStore(
+                    userId: searchResultStore
+                        .products[index].prints[0].material.user.id),
+                child: UserDetail(),
+              ),
             ),
           );
         },
