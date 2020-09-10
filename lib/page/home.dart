@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
     final materials = provider.materials;
     return Scaffold(
       appBar: AppBar(
-        title: Text("ShunT"),
+        title: Text("Suzuri Art List"),
       ),
       body: Column(children: [
         Container(

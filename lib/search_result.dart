@@ -13,7 +13,7 @@ class SearchResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('text'),
+        title: Text('Suzuri Art List'),
       ),
       body: ChangeNotifierProvider(
         create: (BuildContext context) => SearchResultStore(),
