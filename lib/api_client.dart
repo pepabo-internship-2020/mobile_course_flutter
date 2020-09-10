@@ -4,14 +4,30 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'model/product.dart';
+import 'model/user.dart';
+
 class ApiClient {
-  static final baseUrl = 'https://suzuri.jp/api/v1';
-  static final token = DotEnv().env['API_TOKEN'];
+  final baseUrl = 'https://suzuri.jp/api/v1';
+  final token = DotEnv().env['API_TOKEN'];
+  final client = http.Client();
 
-  static Future<Map<String, dynamic>> getMap({@required String path}) async {
-    final client = http.Client();
+  Future<User> getUser({@required int userId}) async {
+    final path = '/users/$userId';
+    final map = await _getResponseMap(path: path);
+    return User.fromMap(map['user']);
+  }
+
+  Future<List<Product>> getProductList({@required int userId}) async {
+    final path = '/products?userId=$userId';
+    final map = await _getResponseMap(path: path);
+    return map['products']
+        .map<Product>((item) => Product.fromMap(item))
+        .toList();
+  }
+
+  Future<Map<String, dynamic>> _getResponseMap({@required String path}) async {
     final url = baseUrl + path;
-
     final response = await client
         .get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
 
