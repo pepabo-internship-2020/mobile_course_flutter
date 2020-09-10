@@ -5,9 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_course_flutter/material.dart';
 import 'package:mobile_course_flutter/material_provider.dart';
-import 'package:mobile_course_flutter/model/product.dart';
+import 'package:mobile_course_flutter/page/search_materials_list.dart';
 import 'package:mobile_course_flutter/page/user_detail.dart';
-import 'package:mobile_course_flutter/search_data.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -16,22 +15,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  void _getSearchData(String searchText) async {
-    final uri =
-        Uri.https('suzuri.jp', '/api/v1/products/search', {'q': searchText});
-    final token = DotEnv().env['API_TOKEN'];
-    final client = http.Client();
-    final response = await client.get(
-      uri,
-      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
-    );
-    final decoded = json.decode(response.body);
-    print(decoded['products'][0]['prints']);
-    final List<Product> searchData = decoded['products']
-        .map<Product>((json) => Product.fromMap(json))
-        .toList();
-    print(searchData[0].prints[0].material);
-  }
 
   @override
   void initState() {
@@ -72,7 +55,12 @@ class _HomeState extends State<Home> {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(22.5)),
             ),
             onSubmitted: (text) {
-              _getSearchData(text);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => SearchMaterialsList(searchText: text),
+                ),
+              );
             },
           ),
         ),
