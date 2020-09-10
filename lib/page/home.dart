@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_course_flutter/material.dart';
 import 'package:mobile_course_flutter/material_provider.dart';
-import 'package:mobile_course_flutter/page/search_materials_list.dart';
+import 'package:mobile_course_flutter/search_result.dart';
 import 'package:mobile_course_flutter/page/user_detail.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -58,7 +57,8 @@ class _HomeState extends State<Home> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => SearchMaterialsList(searchText: text),
+                  builder: (BuildContext context) =>
+                      SearchResult(searchText: text),
                 ),
               );
             },
