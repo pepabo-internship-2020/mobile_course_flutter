@@ -6,17 +6,19 @@ class Product {
   final int id;
   final String title;
   final String sampleImageUrl;
-  final String url;
+
+  final String sampleUrl;
   final List<Print> prints;
 
-  Product({this.id, this.title, this.sampleImageUrl, this.url, this.prints});
+  Product({this.id, this.title, this.sampleImageUrl, this.sampleUrl, this.prints});
+
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
       'sampleImageUrl': sampleImageUrl,
-      'url': url,
+      'sampleUrl': sampleUrl,
       'print': prints,
     };
   }
@@ -28,7 +30,7 @@ class Product {
       id: map['id'],
       title: map['title'],
       sampleImageUrl: map['sampleImageUrl'],
-      url: map['url'],
+      sampleUrl: map['sampleUrl'],
       prints: (map['prints'] as List).map<Print>((value) => Print.fromMap(value)).toList(),
     );
   }
