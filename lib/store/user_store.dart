@@ -10,7 +10,6 @@ class UserStore extends ChangeNotifier {
   final apiClient = SuzuriApiClient();
 
   UserStore({@required this.userId}) {
-    print('constructor called');
     _fetchUser();
     _fetchUserProducts();
   }
@@ -23,7 +22,6 @@ class UserStore extends ChangeNotifier {
       // cannot find user;
     }
     notifyListeners();
-    print(user.toJson());
   }
 
   Future<void> _fetchUserProducts() async {
@@ -34,6 +32,5 @@ class UserStore extends ChangeNotifier {
       print(e);
       // cannot find user;
     }
-    print(products.toString());
   }
 }
