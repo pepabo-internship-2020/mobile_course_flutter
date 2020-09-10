@@ -57,23 +57,33 @@ class _HomeState extends State<Home> {
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
             ),
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        ChangeNotifierProvider<UserStore>(
-                      create: (BuildContext context) =>
-                          UserStore(userId: materials[index].user.id),
-                      child: UserDetail(),
-                    ),
-                  ),
+            itemBuilder: (context, index) {
+              print(index);
+              if (index == materials.length) {
+                provider.loadMaterials();
+                return Center(child: CircularProgressIndicator());
+              } else if (materials.length < index) {
+                return null;
+              } else {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            ChangeNotifierProvider<UserStore>(
+                          create: (BuildContext context) =>
+                              UserStore(userId: materials[index].user.id),
+                          child: UserDetail(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Image.network(materials[index].textureUrl),
                 );
-              },
-              child: Image.network(materials[index].textureUrl),
-            ),
-            itemCount: materials.length,
+              }
+            },
+            itemCount: materials.length + 1,
           ),
         ),
       ]),
