@@ -9,7 +9,7 @@ class UserStore extends ChangeNotifier {
   List<Product> products = [];
   final apiClient = SuzuriApiClient();
 
-  UserStore({this.userId}) {
+  UserStore({@required this.userId}) {
     print('constructor called');
     _fetchUser();
     _fetchUserProducts();
@@ -28,7 +28,7 @@ class UserStore extends ChangeNotifier {
 
   Future<void> _fetchUserProducts() async {
     try {
-      products = await apiClient.getProductList(userId: userId);
+      products = await apiClient.getUserProductList(userId: userId);
       notifyListeners();
     } catch (e) {
       print(e);

@@ -18,7 +18,7 @@ class SuzuriApiClient {
     return User.fromMap(map['user']);
   }
 
-  Future<List<Product>> getProductList({@required int userId}) async {
+  Future<List<Product>> getUserProductList({@required int userId}) async {
     final path = '/products?userId=$userId';
     final map = await _getResponseMap(path: path);
     return map['products']
