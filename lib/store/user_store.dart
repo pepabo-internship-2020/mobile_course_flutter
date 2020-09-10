@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_course_flutter/api_client.dart';
+import 'package:mobile_course_flutter/suzuri_api_client.dart';
 import '../model/product.dart';
 import '../model/user.dart';
 
@@ -7,7 +7,7 @@ class UserStore extends ChangeNotifier {
   final int userId;
   User user;
   List<Product> products = [];
-  final apiClient = ApiClient();
+  final apiClient = SuzuriApiClient();
 
   UserStore({this.userId}) {
     print('constructor called');
