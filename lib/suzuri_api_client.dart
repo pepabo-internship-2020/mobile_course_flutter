@@ -7,7 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'model/product.dart';
 import 'model/user.dart';
 
-class ApiClient {
+class SuzuriApiClient {
   final baseUrl = 'https://suzuri.jp/api/v1';
   final token = DotEnv().env['API_TOKEN'];
   final client = http.Client();
