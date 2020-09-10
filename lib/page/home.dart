@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_course_flutter/material.dart';
 import 'package:mobile_course_flutter/material_provider.dart';
+import 'package:mobile_course_flutter/model/product.dart';
 import 'package:mobile_course_flutter/page/user_detail.dart';
 import 'package:mobile_course_flutter/search_data.dart';
 import 'package:provider/provider.dart';
@@ -25,10 +26,11 @@ class _HomeState extends State<Home> {
       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
     );
     final decoded = json.decode(response.body);
-    final List<SearchData> searchData = decoded['products']
-        .map<SearchData>((json) => SearchData.fromMap(json))
+    print(decoded['products'][0]['prints']);
+    final List<Product> searchData = decoded['products']
+        .map<Product>((json) => Product.fromMap(json))
         .toList();
-    print(searchData[0].prints[0]);
+    print(searchData[0].prints[0].material);
   }
 
   @override
